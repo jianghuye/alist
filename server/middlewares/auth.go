@@ -36,7 +36,7 @@ func Auth(c *gin.Context) {
 			return
 		}
 		if guest.Disabled {
-			common.ErrorStrResp(c, "Guest user is disabled, login please", 401)
+			common.ErrorStrResp(c, "访客用户已禁用，请登录", 401)
 			c.Abort()
 			return
 		}
@@ -59,12 +59,12 @@ func Auth(c *gin.Context) {
 	}
 	// validate password timestamp
 	if userClaims.PwdTS != user.PwdTS {
-		common.ErrorStrResp(c, "Password has been changed, login please", 401)
+		common.ErrorStrResp(c, "密码已更改，请登录", 401)
 		c.Abort()
 		return
 	}
 	if user.Disabled {
-		common.ErrorStrResp(c, "Current user is disabled, replace please", 401)
+		common.ErrorStrResp(c, "当前用户已禁用，请更换", 401)
 		c.Abort()
 		return
 	}
@@ -113,12 +113,12 @@ func Authn(c *gin.Context) {
 	}
 	// validate password timestamp
 	if userClaims.PwdTS != user.PwdTS {
-		common.ErrorStrResp(c, "Password has been changed, login please", 401)
+		common.ErrorStrResp(c, "密码已更改，请登录", 401)
 		c.Abort()
 		return
 	}
 	if user.Disabled {
-		common.ErrorStrResp(c, "Current user is disabled, replace please", 401)
+		common.ErrorStrResp(c, "当前用户已禁用，请更换", 401)
 		c.Abort()
 		return
 	}
@@ -130,7 +130,7 @@ func Authn(c *gin.Context) {
 func AuthNotGuest(c *gin.Context) {
 	user := c.MustGet("user").(*model.User)
 	if user.IsGuest() {
-		common.ErrorStrResp(c, "You are a guest", 403)
+		common.ErrorStrResp(c, "你是游客", 403)
 		c.Abort()
 	} else {
 		c.Next()
@@ -140,7 +140,7 @@ func AuthNotGuest(c *gin.Context) {
 func AuthAdmin(c *gin.Context) {
 	user := c.MustGet("user").(*model.User)
 	if !user.IsAdmin() {
-		common.ErrorStrResp(c, "You are not an admin", 403)
+		common.ErrorStrResp(c, "您不是管理员", 403)
 		c.Abort()
 	} else {
 		c.Next()
