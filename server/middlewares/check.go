@@ -24,7 +24,7 @@ func StoragesLoaded(c *gin.Context) {
 				return
 			}
 		}
-		common.ErrorStrResp(c, "Loading storage, please wait", 500)
+		common.ErrorStrResp(c, "正在加载存储，请稍候", 500)
 		c.Abort()
 	}
 }
